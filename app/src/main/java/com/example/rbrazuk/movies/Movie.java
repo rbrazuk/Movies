@@ -15,6 +15,7 @@ public class Movie {
     private Date mDateWatched;
     private int rating;
     private String genre;
+    public boolean isOnWatchList;
 
     public String getTitle() {
         return mTitle;
@@ -70,5 +71,13 @@ public class Movie {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public boolean isOnWatchList() {
+        return isOnWatchList;
+    }
+
+    public void setIsOnWatchList(boolean isOnWatchList) {
+        this.isOnWatchList = isOnWatchList;
     }
 }
