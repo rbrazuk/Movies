@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".WatchList">
         </activity>
+        <activity android:name=".MovieDetail">
+        </activity>
     </application>
 
 </manifest>

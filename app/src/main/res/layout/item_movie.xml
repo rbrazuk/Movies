@@ -8,16 +8,30 @@
         android:id="@+id/tv_title"
         tools:text="title title title"
         android:textSize="25dp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"/>
-    <TextView
-        android:id="@+id/tv_rating"
-        tools:text="5"
-        android:textSize="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+
+    <ViewSwitcher
+        android:id="@+id/switcher"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_rating"
+            tools:text="5"
+            android:textSize="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <CheckBox
+            android:id="@+id/cb_viewed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </ViewSwitcher>
+
+
 
 
 </LinearLayout>

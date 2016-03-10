@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -15,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.bt_movies) Button btMovies;
     @Bind(R.id.bt_watch_list) Button btWatchList;
 
+    public static ArrayList<Movie> movies;
+
     Intent mIntent;
 
     @Override
@@ -23,6 +27,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        movies = new ArrayList<>();
+        movies.add(new Movie());
+        movies.get(0).setTitle("Vertigo");
+
+        movies.get(0).setIsOnWatchList(true);
+
+        movies.add(new Movie());
+        movies.get(1).setTitle("North By Northwest");
+        movies.get(1).setIsOnWatchList(false);
     }
 
     @OnClick (R.id.bt_movies)

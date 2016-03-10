@@ -1,9 +1,13 @@
 package com.example.rbrazuk.movies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -12,8 +16,10 @@ import butterknife.ButterKnife;
 
 public class MyMovies extends AppCompatActivity {
 
-    @Bind(R.id.rv_movies) RecyclerView rvMovies;
+    @Bind(R.id.lv_movies) ListView lvMovies;
+    ArrayList<Movie> myMovies;
     ArrayList<Movie> movies;
+    static MoviesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +28,36 @@ public class MyMovies extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        movies = new ArrayList<>();
-        movies.add(new Movie());
-        movies.get(0).setTitle("Star Wars");
-        movies.get(0).setRating(5);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        movies.add(new Movie());
-        movies.get(1).setTitle("12 Monkeys");
-        movies.get(1).setRating(4);
+        movies = MainActivity.movies;
+        myMovies = new ArrayList<>();
 
-        MoviesAdapter adapter = new MoviesAdapter(movies);
-        rvMovies.setAdapter(adapter);
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        for(int i = 0;i < movies.size();i++) {
+            Movie movie = movies.get(i);
+            if(!movie.isOnWatchList()) {
+                myMovies.add(movie);
+            } else{
+
+            }
+        }
+
+        adapter = new MoviesAdapter(this,myMovies);
+        lvMovies.setAdapter(adapter);
+
+        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MyMovies.this,MovieDetail.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+            adapter.notifyDataSetChanged();
+
     }
 }

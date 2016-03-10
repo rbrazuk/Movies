@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
  * Created by rossbrazuk1 on 3/10/16.
  */
-public class MoviesAdapter extends ArrayAdapter<Movie> {
-    public MoviesAdapter(Context context,ArrayList<Movie> movies) {
+public class WatchListAdapter extends ArrayAdapter<Movie> {
+    public WatchListAdapter(Context context,ArrayList<Movie> movies) {
         super(context, 0, movies);
     }
 
@@ -29,21 +27,13 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         }
 
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
-        TextView tvRating = (TextView) convertView.findViewById(R.id.tv_rating);
 
         tvTitle.setText(movie.getTitle());
 
-        String ratingString = String.valueOf(movie.getRating());
 
-        if(TextUtils.isEmpty(ratingString) || TextUtils.equals(ratingString,"0")){
-            tvRating.setText("-");
-        } else {
-            tvRating.setText(String.valueOf(movie.getRating()));
-        }
 
 
 
         return convertView;
     }
-
 }

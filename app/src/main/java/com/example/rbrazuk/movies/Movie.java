@@ -1,12 +1,14 @@
 package com.example.rbrazuk.movies;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by rossbrazuk1 on 3/9/16.
  */
-public class Movie {
+public class Movie extends SugarRecord {
 
     private String mTitle;
     private int mYearReleased;
@@ -16,6 +18,10 @@ public class Movie {
     private int rating;
     private String genre;
     public boolean isOnWatchList;
+
+    public Movie(){
+
+    }
 
     public String getTitle() {
         return mTitle;
