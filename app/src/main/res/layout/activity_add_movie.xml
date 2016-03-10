@@ -13,16 +13,19 @@
 
     <EditText
         android:id="@+id/et_title"
+        android:inputType="textCapWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="title"/>
     <EditText
         android:id="@+id/et_year"
+        android:inputType="number"
         android:hint="year released"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/et_director"
+        android:inputType="textCapWords"
         android:hint="director"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -52,6 +55,7 @@
     <EditText
         android:id="@+id/et_rating"
         android:hint="rating"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button

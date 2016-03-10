@@ -1,8 +1,11 @@
 package com.example.rbrazuk.movies;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,15 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        movies = new ArrayList<>();
-        movies.add(new Movie());
+        movies = (ArrayList)Movie.listAll(Movie.class);
+        /*movies.add(new Movie());
         movies.get(0).setTitle("Vertigo");
 
         movies.get(0).setIsOnWatchList(true);
 
         movies.add(new Movie());
         movies.get(1).setTitle("North By Northwest");
-        movies.get(1).setIsOnWatchList(false);
+        movies.get(1).setIsOnWatchList(false);*/
 
 
     }
@@ -52,6 +55,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         moviesWatched(movies);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_add:
+                Intent intent= new Intent(MainActivity.this,AddMovie.class);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @OnClick (R.id.bt_movies)
@@ -86,5 +110,7 @@ public class MainActivity extends AppCompatActivity {
         }
         tvMovieTotal.setText("Movies watched: " + String.valueOf(watchedMovies.size()));
     }
+
+
 
 }

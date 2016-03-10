@@ -1,5 +1,6 @@
 package com.example.rbrazuk.movies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,14 @@ public class AddMovie extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        Boolean setOnWatchlist = getIntent().getBooleanExtra("setWatchList", false);
+
+        if(setOnWatchlist) {
+            cbOnWatchList.setChecked(true);
+        } else {
+
+        }
+
 
     }
 
@@ -44,7 +53,12 @@ public class AddMovie extends AppCompatActivity {
 
         movie.setRating(etRating.getText().toString());
 
-        MainActivity.movies.add(movie);
+        movie.save();
+
+        //MainActivity.movies.add(movie);
+
+        Intent intent = new Intent(AddMovie.this,MainActivity.class);
+        startActivity(intent);
 
 
     }
