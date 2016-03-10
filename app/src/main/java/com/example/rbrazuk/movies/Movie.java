@@ -11,11 +11,11 @@ import java.util.Date;
 public class Movie extends SugarRecord {
 
     private String mTitle;
-    private int mYearReleased;
+    private String mYearReleased;
     private String mDirector;
     private ArrayList<String> mActors;
-    private Date mDateWatched;
-    private int rating;
+    private String mDateWatched;
+    private String rating;
     private String genre;
     public boolean isOnWatchList;
 
@@ -31,11 +31,11 @@ public class Movie extends SugarRecord {
         mTitle = title;
     }
 
-    public int getYearReleased() {
+    public String getYearReleased() {
         return mYearReleased;
     }
 
-    public void setYearReleased(int yearReleased) {
+    public void setYearReleased(String yearReleased) {
         mYearReleased = yearReleased;
     }
 
@@ -55,19 +55,19 @@ public class Movie extends SugarRecord {
         mActors = actors;
     }
 
-    public Date getDateWatched() {
+    public String getDateWatched() {
         return mDateWatched;
     }
 
-    public void setDateWatched(Date dateWatched) {
+    public void setDateWatched(String dateWatched) {
         mDateWatched = dateWatched;
     }
 
-    public int getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

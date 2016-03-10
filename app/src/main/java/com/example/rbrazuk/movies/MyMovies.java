@@ -30,17 +30,7 @@ public class MyMovies extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        movies = MainActivity.movies;
-        myMovies = new ArrayList<>();
-
-        for(int i = 0;i < movies.size();i++) {
-            Movie movie = movies.get(i);
-            if(!movie.isOnWatchList()) {
-                myMovies.add(movie);
-            } else{
-
-            }
-        }
+        updateData();
 
         adapter = new MoviesAdapter(this,myMovies);
         lvMovies.setAdapter(adapter);
@@ -57,7 +47,21 @@ public class MyMovies extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-            adapter.notifyDataSetChanged();
+            updateData();
 
+    }
+
+    private void updateData() {
+        movies = MainActivity.movies;
+        myMovies = new ArrayList<>();
+
+        for(int i = 0;i < movies.size();i++) {
+            Movie movie = movies.get(i);
+            if(!movie.isOnWatchList()) {
+                myMovies.add(movie);
+            } else{
+
+            }
+        }
     }
 }

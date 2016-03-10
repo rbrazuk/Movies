@@ -31,6 +31,42 @@ public class WatchList extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        updateData();
+
+        System.out.println(watchList);
+
+
+
+        final MoviesAdapter adapter = new MoviesAdapter(this, watchList);
+        lvWatchList.setAdapter(adapter);
+
+        lvWatchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Movie movie = (Movie) parent.getItemAtPosition(position);
+                movie.setIsOnWatchList(false);
+                watchList.remove(movie);
+                adapter.remove(movie);
+                adapter.notifyDataSetChanged();
+                updateData();
+
+
+
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateData();
+
+    }
+
+    private void updateData(){
         watchList = new ArrayList<>();
         movies = MainActivity.movies;
 
@@ -42,24 +78,7 @@ public class WatchList extends AppCompatActivity {
             else {
 
             }
+
         }
-
-        System.out.println(watchList);
-
-
-
-        MoviesAdapter adapter = new MoviesAdapter(this, watchList);
-        lvWatchList.setAdapter(adapter);
-
-        lvWatchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Movie movie = (Movie) parent.getItemAtPosition(position);
-                movie.setIsOnWatchList(false);
-            }
-        });
-
-
     }
 }
