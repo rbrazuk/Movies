@@ -46,10 +46,6 @@ public class MyMovies extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
 
     @Override

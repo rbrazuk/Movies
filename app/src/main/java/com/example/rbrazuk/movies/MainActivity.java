@@ -39,7 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         movies = (ArrayList)Movie.listAll(Movie.class);
+        /*movies.add(new Movie());
+        movies.get(0).setTitle("Vertigo");
 
+        movies.get(0).setIsOnWatchList(true);
+
+        movies.add(new Movie());
+        movies.get(1).setTitle("North By Northwest");
+        movies.get(1).setIsOnWatchList(false);*/
 
 
     }
