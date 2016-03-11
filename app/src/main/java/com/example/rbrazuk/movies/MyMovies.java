@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,9 +22,10 @@ import butterknife.ButterKnife;
 public class MyMovies extends AppCompatActivity {
 
     @Bind(R.id.lv_movies) ListView lvMovies;
-    ArrayList<Movie> myMovies;
+
     ArrayList<Movie> movies;
     static MoviesAdapter adapter;
+    ArrayList myMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class MyMovies extends AppCompatActivity {
         setContentView(R.layout.activity_my_movies);
 
         ButterKnife.bind(this);
+
+        movies = (ArrayList) MovieShelf.get(this).getMovies();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -42,8 +46,26 @@ public class MyMovies extends AppCompatActivity {
         lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MyMovies.this, MovieDetail.class);
-                startActivity(intent);
+
+
+                //Intent intent = new Intent(MyMovies.this, MovieDetail.class);
+                //startActivity(intent);
+            }
+        });
+
+        lvMovies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = (Movie) parent.getItemAtPosition(position);
+
+
+                movies.remove(movie);
+                adapter.remove(movie);
+                movie.delete();
+                adapter.notifyDataSetChanged();
+                updateData();
+
+                return true;
             }
         });
     }
@@ -76,10 +98,8 @@ public class MyMovies extends AppCompatActivity {
         }
     }
 
-
-
     private void updateData() {
-        movies = MainActivity.movies;
+        movies = (ArrayList<Movie>) MovieShelf.get(this).getMovies();
         myMovies = new ArrayList<>();
 
         for(int i = 0;i < movies.size();i++) {

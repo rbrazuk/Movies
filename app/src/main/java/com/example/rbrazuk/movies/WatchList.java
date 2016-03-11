@@ -48,15 +48,24 @@ public class WatchList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+
+            }
+        });
+
+        lvWatchList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Movie movie = (Movie) parent.getItemAtPosition(position);
                 movie.setIsOnWatchList(false);
+                movie.save();
                 watchList.remove(movie);
                 adapter.remove(movie);
                 adapter.notifyDataSetChanged();
                 updateData();
 
-
-
+                return true;
             }
         });
 
@@ -93,7 +102,7 @@ public class WatchList extends AppCompatActivity {
 
     private void updateData(){
         watchList = new ArrayList<>();
-        movies = MainActivity.movies;
+        movies = (ArrayList<Movie>) MovieShelf.get(this).getMovies();
 
         for(int i = 0; i < movies.size();i++) {
             Movie movie = movies.get(i);

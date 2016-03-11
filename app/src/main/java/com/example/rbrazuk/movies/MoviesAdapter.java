@@ -36,7 +36,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         String ratingString = String.valueOf(movie.getRating());
 
         if(TextUtils.isEmpty(ratingString) || TextUtils.equals(ratingString,"0")){
-            tvRating.setText("-");
+            tvRating.setText("");
         } else {
             tvRating.setText(String.valueOf(movie.getRating()));
         }

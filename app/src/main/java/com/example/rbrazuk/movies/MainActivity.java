@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.tv_total_movies_watched) TextView tvMovieTotal;
     private int mMoviesWatched;
 
-    public static ArrayList<Movie> movies;
+    //public static ArrayList<Movie> movies;
 
     Intent mIntent;
 
@@ -35,18 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        //movies = (ArrayList)Movie.listAll(Movie.class);
 
-
-
-        movies = (ArrayList)Movie.listAll(Movie.class);
-        /*movies.add(new Movie());
-        movies.get(0).setTitle("Vertigo");
-
-        movies.get(0).setIsOnWatchList(true);
-
-        movies.add(new Movie());
-        movies.get(1).setTitle("North By Northwest");
-        movies.get(1).setIsOnWatchList(false);*/
 
 
     }
@@ -54,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        moviesWatched(movies);
+        moviesWatched(MovieShelf.get(this).getMovies());
     }
 
     @Override
@@ -96,12 +87,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(mIntent);
     }
 
-    private void moviesWatched(ArrayList<Movie> allMovies) {
-        allMovies = MainActivity.movies;
+    private void moviesWatched(List<Movie> allMovies) {
+        allMovies = MovieShelf.get(this).getMovies();
         ArrayList<Movie> watchedMovies = new ArrayList<>();
 
         for(int i = 0;i < allMovies.size();i++) {
-            Movie movie = movies.get(i);
+            Movie movie = allMovies.get(i);
             if(!movie.isOnWatchList()) {
                 watchedMovies.add(movie);
             } else{
