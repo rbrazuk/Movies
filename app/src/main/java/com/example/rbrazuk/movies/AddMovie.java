@@ -1,18 +1,24 @@
 package com.example.rbrazuk.movies;
 
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddMovie extends AppCompatActivity {
+public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     @Bind(R.id.et_title) EditText etTitle;
     @Bind(R.id.et_year) EditText etYear;
@@ -41,6 +47,27 @@ public class AddMovie extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.et_date_watched)
+    public void showDatePickerDialog(View v) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(),"datePicker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-FF");
+        System.out.println(format.format(c.getTime()));
+        etDateWatched.setText(format.format(c.getTime()));
+
+
+
+    }
+
     @OnClick(R.id.bt_save)
     public void saveMovie(View view) {
         Movie movie = new Movie();
@@ -50,7 +77,7 @@ public class AddMovie extends AppCompatActivity {
         movie.setDirector(etDirector.getText().toString());
         movie.setGenre(etGenre.getText().toString());
         movie.setIsOnWatchList(cbOnWatchList.isChecked());
-
+        movie.setDateWatched(etDateWatched.getText().toString());
         movie.setRating(etRating.getText().toString());
 
         movie.save();
@@ -63,3 +90,4 @@ public class AddMovie extends AppCompatActivity {
 
     }
 }
+

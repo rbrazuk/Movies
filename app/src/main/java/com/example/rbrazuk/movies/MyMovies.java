@@ -20,6 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MyMovies extends AppCompatActivity {
+    public static final String MOVIE_ID = "movieId";
 
     @Bind(R.id.lv_movies) ListView lvMovies;
 
@@ -47,9 +48,12 @@ public class MyMovies extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Movie movie = (Movie) parent.getItemAtPosition(position);
+                Long idNumber = movie.getId();
 
-                //Intent intent = new Intent(MyMovies.this, MovieDetail.class);
-                //startActivity(intent);
+                Intent intent = new Intent(MyMovies.this, MovieDetail.class);
+                intent.putExtra(MOVIE_ID,idNumber);
+                startActivity(intent);
             }
         });
 
