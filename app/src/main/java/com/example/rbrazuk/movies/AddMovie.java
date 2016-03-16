@@ -5,11 +5,15 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
     @Bind(R.id.et_title) EditText etTitle;
     @Bind(R.id.et_year) EditText etYear;
@@ -28,6 +32,9 @@ public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDa
     @Bind(R.id.bt_save) Button btSave;
     @Bind(R.id.cb_on_watch_list) CheckBox cbOnWatchList;
     @Bind(R.id.et_rating) EditText etRating;
+    @Bind(R.id.sp_rating) Spinner ratingSpinner;
+
+    static String rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,13 @@ public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDa
         } else {
 
         }
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.ratings,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ratingSpinner.setAdapter(adapter);
+        ratingSpinner.setOnItemSelectedListener(this);
+
+
 
 
     }
@@ -78,15 +92,36 @@ public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDa
         movie.setGenre(etGenre.getText().toString());
         movie.setIsOnWatchList(cbOnWatchList.isChecked());
         movie.setDateWatched(etDateWatched.getText().toString());
-        movie.setRating(etRating.getText().toString());
+        //movie.setRating(etRating.getText().toString());
+        movie.setRating(rating);
 
         movie.save();
 
-        //MainActivity.movies.add(movie);
+
 
         Intent intent = new Intent(AddMovie.this,MainActivity.class);
         startActivity(intent);
 
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        String selectedItem = (String) parent.getItemAtPosition(position);
+
+        System.out.println(selectedItem);
+
+        if(TextUtils.equals(selectedItem,"set rating")) {
+            rating = null;
+        } else {
+            rating = (String) parent.getItemAtPosition(position);
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }
