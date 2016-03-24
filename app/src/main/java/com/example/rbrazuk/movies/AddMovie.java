@@ -15,6 +15,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.firebase.client.Firebase;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -31,7 +33,6 @@ public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDa
     @Bind(R.id.et_date_watched) EditText etDateWatched;
     @Bind(R.id.bt_save) Button btSave;
     @Bind(R.id.cb_on_watch_list) CheckBox cbOnWatchList;
-    @Bind(R.id.et_rating) EditText etRating;
     @Bind(R.id.sp_rating) Spinner ratingSpinner;
 
     static String rating;
@@ -92,12 +93,15 @@ public class AddMovie extends AppCompatActivity implements DatePickerDialog.OnDa
         movie.setGenre(etGenre.getText().toString());
         movie.setIsOnWatchList(cbOnWatchList.isChecked());
         movie.setDateWatched(etDateWatched.getText().toString());
-        //movie.setRating(etRating.getText().toString());
         movie.setRating(rating);
 
-        movie.save();
+        //movie.save();
 
+        Firebase ref = new Firebase("https://rcbmovieapp.firebaseio.com/");
 
+        Firebase movieRef = ref.child("movies");
+
+        movieRef.push().setValue(movie);
 
         Intent intent = new Intent(AddMovie.this,MainActivity.class);
         startActivity(intent);

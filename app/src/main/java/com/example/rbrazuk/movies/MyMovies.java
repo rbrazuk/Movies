@@ -12,6 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.firebase.client.Firebase;
+import com.firebase.ui.FirebaseListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,8 @@ public class MyMovies extends AppCompatActivity {
     public static final String MOVIE_ID = "movieId";
 
     @Bind(R.id.lv_movies) ListView lvMovies;
+
+    FirebaseListAdapter<Movie> mAdapter;
 
     ArrayList<Movie> movies;
     static MoviesAdapter adapter;
@@ -41,7 +47,21 @@ public class MyMovies extends AppCompatActivity {
 
         updateData();
 
-        adapter = new MoviesAdapter(this,myMovies);
+        Firebase ref = new Firebase("https://rcbmovieapp.firebaseio.com/");
+
+        Firebase movieRef = ref.child("movies");
+
+        mAdapter = new FirebaseListAdapter<Movie>(this, Movie.class,R.layout.item_movie,movieRef) {
+            @Override
+            protected void populateView(View view, Movie movie, int position) {
+                ((TextView)view.findViewById(R.id.tv_title)).setText(movie.getTitle());
+                ((TextView)view.findViewById(R.id.tv_rating)).setText(movie.getRating());
+            }
+        };
+
+        lvMovies.setAdapter(mAdapter);
+
+        /*adapter = new MoviesAdapter(this,myMovies);
         lvMovies.setAdapter(adapter);
 
         lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,7 +91,7 @@ public class MyMovies extends AppCompatActivity {
 
                 return true;
             }
-        });
+        });*/
     }
 
     @Override

@@ -65,12 +65,7 @@
             android:layout_height="wrap_content"></Spinner>
 
     </LinearLayout>
-    <EditText
-        android:id="@+id/et_rating"
-        android:hint="rating"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/bt_save"
         android:text="Save"

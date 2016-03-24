@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.bt_watch_list) Button btWatchList;
     @Bind(R.id.bt_add_movie) Button btAddMovie;
     @Bind(R.id.tv_total_movies_watched) TextView tvMovieTotal;
+    @Bind(R.id.bt_firebase) Button btFirebase;
     private int mMoviesWatched;
 
     //public static ArrayList<Movie> movies;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        Firebase.setAndroidContext(this);
 
         //movies = (ArrayList)Movie.listAll(Movie.class);
 
@@ -84,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick (R.id.bt_add_movie)
     public void launchAddMovie(View view) {
         mIntent = new Intent(MainActivity.this,AddMovie.class);
+        startActivity(mIntent);
+    }
+
+    @OnClick (R.id.bt_firebase)
+    public void launchFirebaseDemo(View view) {
+        mIntent = new Intent(MainActivity.this,FirebaseDemo.class);
         startActivity(mIntent);
     }
 
